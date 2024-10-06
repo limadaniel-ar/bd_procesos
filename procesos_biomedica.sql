@@ -2,6 +2,7 @@ CREATE DATABASE procesos_biomedica;
 
 USE procesos_biomedica;
 
+-- Creaciones de tablas
 CREATE TABLE Rol (
   ID int,
   tipo varchar(90),
@@ -102,14 +103,15 @@ CREATE TABLE OperarioEnOrden (
   FOREIGN KEY (legajoOperario) REFERENCES Usuario(legajo)
 );
 
+-- Inserciones de datos en cada tabla
 INSERT INTO Rol (ID, tipo) VALUES
-	(1, 'Operario'),
+    (1, 'Operario'),
     (2, 'Jefe de Produccion'),
     (3, 'Jefe de Planificacion'),
     (4, 'Director');
 
 INSERT INTO Unidad (ID, nombre) VALUES
-	(1, 'Kilogramos'),
+    (1, 'Kilogramos'),
     (2, 'Comprimidos'),
     (3, 'Capsulas'),
     (4, 'Blister x 2 comp'),
@@ -120,7 +122,7 @@ INSERT INTO Unidad (ID, nombre) VALUES
     (9, 'Estuche x 15 caps');
 
 INSERT INTO Area (ID, nombre) VALUES
-	(1, 'Granulacion'),
+    (1, 'Granulacion'),
     (2, 'Compresion 1'),
     (3, 'Compresion 2'),
     (4, 'Encapsulado'),
@@ -129,7 +131,7 @@ INSERT INTO Area (ID, nombre) VALUES
     (7, 'Empaque');
 
 INSERT INTO CategoriaParada (ID, descripcion) VALUES
-	(1, 'Corte electrico'),
+    (1, 'Corte electrico'),
     (2, 'Temperatura ambiente Alta'),
     (3, 'Presion baja'),
     (4, 'Comprimidos rotos'),
@@ -139,32 +141,32 @@ INSERT INTO CategoriaParada (ID, descripcion) VALUES
     (8, 'Puesta a punto dificultosa');
 
 INSERT INTO Etapa (ID, nombre) VALUES
-	(1, 'Armado'),
+    (1, 'Armado'),
     (2, 'En produccion'),
     (3, 'Desarmado y limpieza');
 
 INSERT INTO Usuario (legajo, DNI, nombre, apellido, password, rolID) VALUES
-	(1, 30123456, 'Juan', 'Pérez', 'password123', 1),
-	(2, 31234567, 'Ana', 'Gómez', 'password456', 3),
-	(3, 32345678, 'Luis', 'Martínez', 'password789', 1),
-	(4, 33456789, 'María', 'López', 'password012', 2),
-	(5, 34567890, 'Carlos', 'Fernández', 'password345', 1),
-	(6, 35678901, 'Laura', 'Ruiz', 'password678', 4);
+    (1, 30123456, 'Juan', 'Pérez', 'password123', 1),
+    (2, 31234567, 'Ana', 'Gómez', 'password456', 3),
+    (3, 32345678, 'Luis', 'Martínez', 'password789', 1),
+    (4, 33456789, 'María', 'López', 'password012', 2),
+    (5, 34567890, 'Carlos', 'Fernández', 'password345', 1),
+    (6, 35678901, 'Laura', 'Ruiz', 'password678', 4);
 
 INSERT INTO Costo (ID, mes, anio, valor, legajoDirector) VALUES
-	(1, 6, 2024, 1500.00, 6),
-	(2, 7, 2024, 1600.00, 6),
-	(3, 8, 2024, 1700.00, 6);
+    (1, 6, 2024, 1500.00, 6),
+    (2, 7, 2024, 1600.00, 6),
+    (3, 8, 2024, 1700.00, 6);
 
 INSERT INTO Producto (ID, nombre, cantidad, unidadID) VALUES
-	(1, 'Diclofenac', 100, 1),
-	(2, 'Comp Diclofenac', 150, 2),
-	(3, 'Diclofenac BL x 2', 200, 4),
-	(4, 'Diclofenac Est x 2', 250, 7),
-	(5, 'Ibuprofeno', 300, 1),
-	(6, 'Ibuprofeno 400', 350, 3),
-	(7, 'Ibuprofeno 400 bl x 15', 400, 6),
-	(8, 'Ibuprofeno 400 Est x 15', 450, 9);
+    (1, 'Diclofenac', 100, 1),
+    (2, 'Comp Diclofenac', 150, 2),
+    (3, 'Diclofenac BL x 2', 200, 4),
+    (4, 'Diclofenac Est x 2', 250, 7),
+    (5, 'Ibuprofeno', 300, 1),
+    (6, 'Ibuprofeno 400', 350, 3),
+    (7, 'Ibuprofeno 400 bl x 15', 400, 6),
+    (8, 'Ibuprofeno 400 Est x 15', 450, 9);
 
 INSERT INTO OrdenProduccion (ID, lote, ProductoID, areaID, costoID, iniciado, pausado, terminado) VALUES
     (100001, 101, 1, 1, 1, true, false, true),
@@ -180,6 +182,7 @@ INSERT INTO OperarioEnOrden (ID, OPID, legajoOperario, etapaID, inicio, fin) VAL
     (1, 100002, 1, 2, '2024-10-06 08:00:00', NULL),
     (2, 100003, 3, 1, '2024-10-06 09:00:00', NULL);
 
+-- Consultas
 -- Muestra todas las ordenes de produccion iniciadas
 SELECT 
     OrdenProduccion.ID,
@@ -238,6 +241,7 @@ WHERE
     AND OrdenProduccion.pausado = false 
     AND OrdenProduccion.terminado = false;
 
+-- Borrado de datos de prueba
 DELETE FROM OperarioEnOrden;
 DELETE FROM Parada;
 DELETE FROM OrdenProduccion;
